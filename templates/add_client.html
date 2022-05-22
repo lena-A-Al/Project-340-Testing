@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add client</title>
+</head>
+<body>
+    <!-- insert -->
+<div id="insert" style="display: block">
+    <form id="addclient" action="/add_client" method= "post">
+      <legend><strong>Add client</strong></legend>
+      <fieldset class="fields">
+        <label> project_id </label> <input type="number" name="project_id" />
+        <label> manager_id </label> <input type="text" name="manager_id" />
+        <label> client_organization </label> <input type="text" name="client_organization" />
+      </fieldset>
+      <input
+        class="btn"
+        type="submit"
+        value="Add Client"
+      />
+      <button><a href="./clients">Cancel</a></button>
+    </form>
+</body>
+</html>

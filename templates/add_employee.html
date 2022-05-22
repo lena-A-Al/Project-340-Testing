@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Employee</title>
+</head>
+<body>
+    <!-- insert -->
+<div id="insert" style="display: block">
+    <form id="addemployee" action="/add_employee" method= "post">
+      <legend><strong>Add Employee</strong></legend>
+      <fieldset class="fields">
+        <label> manager_id </label> <input type="number" name="manager_id" />
+        <label> employee_name </label> <input type="text" name="employee_name" />
+        <label> organization </label> <input type="text" name="organization" />
+      </fieldset>
+    
+      <input
+        class="btn"
+        type="submit"
+        value="Add Employee"
+      />
+      <button><a href="./employees">Cancel</a></button>
+    </form>
+</body>
+</html>

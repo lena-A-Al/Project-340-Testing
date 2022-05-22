@@ -12,127 +12,51 @@
     <nav class="nav-home">
       <img
         class="img-home-logo"
-        src="./images/management.png"
+        src="../static/management.png"
         alt="management logo"
       />
-      <p><a href="./index.html">Home</a></p>
+      <p><a href="./">Home</a></p>
       <h2>Entities</h2>
-      <p><a href="./managers.html">Managers</a></p>
-      <p><a href="./employees.html">Employees</a></p>
-      <p><a href="./projects.html">Projects</a></p>
-      <p><a href="./clients.html">Clients</a></p>
+      <p><a href="./managers">Managers</a></p>
+      <p><a href="./employees">Employees</a></p>
+      <p><a href="./projects">Projects</a></p>
+      <p><a href="./clients">Clients</a></p>
+      <p><a href="./projects_mapping">Projects Mapping</a></p>
     </nav>
     <main class="main">
       <!-- browse -->
       <div id="browse">
         <h1>Manager</h1>
         <p><a href="#" onclick="showAll()">Display all forms</a></p>
-        <h4>
-          An entity that stores information about managers including manager_id,
-          manager_name, organization, employee_under, client_id.
-        </h4>
+        <h4>	An entity that stores information about managers including manager_id, manager_name, organization, employee_under, client_id.</h4>
         <table border="1" cellpadding="10">
-          <tr>
-            <th><a href="#">New</a></th>
-            <th></th>
+        <thead>
+        <tr>
             <th>manager_id</th>
-            <th>project_id</th>
+            <th>manager_name</th>
             <th>organization</th>
+            <th>Action</th>
           </tr>
-          <tr>
-            <td>
-              <a href="#">Edit</a>
-            </td>
-            <td>
-              <a href="#">Delete</a>
-            </td>
-            <td>1</td>
-            <td>234</td>
-            <td>Marketing</td>
-          </tr>
-          <tr>
-            <td>
-              <a href="#">Edit</a>
-            </td>
-            <td>
-              <a href="#">Delete</a>
-            </td>
-            <td>2</td>
-            <td>567</td>
-            <td>Legal</td>
-          </tr>
-          <tr>
-            <td>
-              <a href="#">Edit</a>
-            </td>
-            <td>
-              <a href="#">Delete</a>
-            </td>
-            <td>3</td>
-            <td>893</td>
-            <td>HR</td>
-          </tr>
-        </table>
-      </div>
-      <!-- insert -->
-      <div id="insert" style="display: block">
-        <form id="addManager">
-          <legend><strong>Add Manager</strong></legend>
-          <fieldset class="fields">
-            <label> Manager_Id </label> <input type="text" name="manager_id" />
-            <label> Project_Id </label> <input type="text" name="project_id" />
-            <label> organization </label>
-            <input type="text" name="organization" />
-          </fieldset>
-          <input
-            class="btn"
-            type="submit"
-            id="addManager"
-            value="Add a Manager"
-          />
-          <input class="btn" type="button" value="cancel" />
-        </form>
-      </div>
+         <tbody>
+    {% for item in managers %}
+    <tr>
+        <td>{{item[0]}}</td>
+        <td>{{item[1]}}</td>
+        <td>{{item[2]}}</td>
 
-      <p>&nbsp;</p>
-      <!-- update -->
-      <div id="update" style="display: block">
-        <form id="updateManager">
-          <legend><strong>Update Manager</strong></legend>
-          <fieldset class="fields">
-            <label>ID:</label> 1 <label> Manager_Id </label>
-            <input type="text" value="3" name="manager_id" />
-            <label> Project_Id </label>
-            <input type="text" name="project_id" value="4567" />
-            <label> organization </label>
-            <input type="text" name="organization" value="HR" />
-          </fieldset>
-          <input
-            class="btn"
-            type="submit"
-            id="UpdateSaveManager"
-            value="Save Update Manager"
-          />
-          <input class="btn" type="button" value="cancel" />
-        </form>
-      </div>
-      <p>&nbsp;</p>
-      <!-- delete -->
-      <div id="delete" style="display: block">
-        <form id="deleteManager">
-          <legend><strong>Delete Manager</strong></legend>
-          <fieldset class="fields">
-            <p>Are you sure you wish to delete the following?</p>
-          </fieldset>
-          <input
-            class="btn"
-            type="submit"
-            id="DeleteManager"
-            value="Delete Manager"
-          />
-          <input class="btn" type="button" value="cancel" />
-        </form>
-      </div>
+        <td>
+          <button>
+            <a href="./managers/edit_manager/{{item[0]}}">Edit</a>
+          </button>
+          
+          <button>
+            <a href="./delete_manager/{{item[0]}}">Delete</a>
+          </button>
+          </td>
+    </tr>
+    {% endfor %} 
+        </table>
+        <button><a href="./add_manager">Add New</a></button>
     </main>
   </body>
 </html>

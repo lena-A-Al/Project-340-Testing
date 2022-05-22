@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/styles.css" />
+    <title>Projects_mapping Page</title>
+  </head>
+  <body>
+    <nav class="nav-home">
+      <img
+        class="img-home-logo"
+        src="../static/management.png"
+        alt="management logo"
+      />
+      <p><a href="./">Home</a></p>
+      <h2>Entities</h2>
+      <p><a href="./managers">Managers</a></p>
+      <p><a href="./employees">Employees</a></p>
+      <p><a href="./projects">Projects</a></p>
+      <p><a href="./clients">Clients</a></p>
+      <p><a href="./projects_mapping">Projects Mapping</a></p>
+    </nav>
+    <main class="main">
+      <h1>Projects mapping</h1>
+      <h4>
+        This entity is called projects_mapping which shows all the available
+        projects and employees that are working on that specific project. It
+        also shows NULL values when there's no employees assigned to a project
+        yet.
+      </h4>
+      <table border="1" cellpadding="10">
+      <thead>
+        <tr>
+          <th>Fix DDL.sql</th>
+          <th>employee_id</th>
+          <th>project_id</th>
+          <th>Action</th>
+        </tr>
+        <tbody>
+    {% for item in projects_mapping %}
+    <tr>
+        <td>Missing</td>
+        <td>{{item[0]}}</td>
+        <td>{{item[1]}}</td>
+        <td>
+          <button>
+            <a href="./projects_mapping/edit_project_mapping/{{item[0]}}">Edit</a>
+          </button>
+          
+          <button>
+            <a href="./delete_manager/{{item[0]}}">Delete</a>
+          </button>
+        </td>
+
+    </tr>
+    {% endfor %}
+      </table>
+
+      <button><a href="/add_project_mapping">Add New</a></button>
+  
+    </main>
+  </body>
+</html>

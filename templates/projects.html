@@ -11,116 +11,48 @@
     <nav class="nav-home">
       <img
         class="img-home-logo"
-        src="./images/management.png"
+        src="../static/management.png"
         alt="management logo"
       />
-      <p><a href="./index.html">Home</a></p>
+      <p><a href="./">Home</a></p>
       <h2>Entities</h2>
-      <p><a href="./managers.html">Managers</a></p>
-      <p><a href="./employees.html">Employees</a></p>
-      <p><a href="./projects.html">Projects</a></p>
-      <p><a href="./clients.html">Clients</a></p>
+      <p><a href="./managers">Managers</a></p>
+      <p><a href="./employees">Employees</a></p>
+      <p><a href="./projects">Projects</a></p>
+      <p><a href="./clients">Clients</a></p>
+      <p><a href="./projects_mapping">Projects Mapping</a></p>
     </nav>
     <main class="main">
       <h1>Project</h1>
-      <h4>
-        An entity that stores information about project_id, client_id, and task.
-        Task is a description of the project. A manager can search for a project
-        by using a client_id.
-      </h4>
+      <h4>An entity that stores information about project_id, client_id, and task. Task is a description of the project. A manager can search for a project by using a client_id.</h4>
       <table border="1" cellpadding="10">
+      <thead>
         <tr>
-          <th><a href="#">New</a></th>
-          <th></th>
           <th>project_id</th>
           <th>task</th>
+          <th>Action</th>
         </tr>
-        <tr>
-          <td>
-            <a href="#">Edit</a>
-          </td>
-          <td>
-            <a href="#">Delete</a>
-          </td>
-          <td>1</td>
-          <td>Fix brochure design</td>
-        </tr>
-        <tr>
-          <td>
-            <a href="#">Edit</a>
-          </td>
-          <td>
-            <a href="#">Delete</a>
-          </td>
-          <td>2</td>
-          <td>Update the name list</td>
-        </tr>
-        <tr>
-          <td>
-            <a href="#">Edit</a>
-          </td>
-          <td>
-            <a href="#">Delete</a>
-          </td>
-          <td>3</td>
-          <td>Update HR policy on gun violence</td>
-        </tr>
+        <tbody>
+    {% for item in projects %}
+    <tr>
+        <td>{{item[0]}}</td>
+        <td>{{item[1]}}</td>
+        <td>
+          <button>
+            <a href="./projects/edit_project/{{item[0]}}">Edit</a>
+          </button>
+          
+          <button>
+            <a href="./delete_project/{{item[0]}}">Delete</a>
+          </button>
+        </td>
+    </tr>
+    {% endfor %} 
       </table>
-      <!-- insert -->
-      <div id="insert" style="display: block">
-        <form id="addClient">
-          <legend><strong>Add Project</strong></legend>
-          <fieldset class="fields">
-            <label> Project_Id </label> <input type="text" name="project_id" />
-            <label> Task</label> <input type="text" name="task" />
-          </fieldset>
-          <input
-            class="btn"
-            type="submit"
-            id="addProject"
-            value="Add a Project"
-          />
-          <input class="btn" type="button" value="cancel" />
-        </form>
-      </div>
 
-      <p>&nbsp;</p>
-      <!-- update -->
-      <div id="update" style="display: block">
-        <form id="updateClient">
-          <legend><strong>Update Project</strong></legend>
-          <fieldset class="fields">
-            <label> Project_Id </label>
-            <input type="text" name="project_id" value="4567" />
-            <label> Task </label>
-            <input type="text" name="organization" value="HR" />
-          </fieldset>
-          <input
-            class="btn"
-            type="submit"
-            id="UpdateSaveProject"
-            value="Save Update Project"
-          />
-          <input class="btn" type="button" value="cancel" />
-        </form>
-      </div>
-      <p>&nbsp;</p>
-      <!-- delete -->
-      <div id="delete" style="display: block">
-        <form id="deleteProject">
-          <legend><strong>Delete Project</strong></legend>
-          <fieldset class="fields">
-            <p>Are you sure you wish to delete the following?</p>
-          </fieldset>
-          <input
-            class="btn"
-            type="submit"
-            id="DeleteProject"
-            value="Delete Project"
-          />
-          <input class="btn" type="button" value="cancel" />
-        </form>
-      </div>
+
+      <button><a href="/add_project">Add New</a></button>
+  
     </main>
   </body>
 </html>

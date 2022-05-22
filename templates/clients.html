@@ -5,137 +5,57 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../static/styles.css" />
-    <title>Client Page</title></head
-  >http://flip1.engr.oregonstate.edu:9112/
+    <title>Client Page</title>
+  </head>
   <body>
     <nav class="nav-home">
       <img
         class="img-home-logo"
-        src="./images/management.png"
+        src="../static/management.png"
         alt="management logo"
       />
-      <p><a href="./index.html">Home</a></p>
+      <p><a href="./">Home</a></p>
       <h2>Entities</h2>
-      <p><a href="./managers.html">Managers</a></p>
-      <p><a href="./employees.html">Employees</a></p>
-      <p><a href="./projects.html">Projects</a></p>
-      <p><a href="./clients.html">Clients</a></p>
+      <p><a href="./managers">Managers</a></p>
+      <p><a href="./employees">Employees</a></p>
+      <p><a href="./projects">Projects</a></p>
+      <p><a href="./clients">Clients</a></p>
+      <p><a href="./projects_mapping">Projects Mapping</a></p>
     </nav>
     <main class="main">
       <h1>Client</h1>
-      <h4>
-        An entity that stores information about client_id, project_id, and
-        organization. This will demonstrate the relationship of the client with
-        the organization as one client can give only one project.
-      </h4>
+      <h4>An entity that stores information about client_id, project_id, and organization. This will demonstrate the relationship of the client with the organization as one client can give only one project.</h4>
       <table border="1" cellpadding="10">
+      <thead>
         <tr>
-          <th><a href="#">New</a></th>
-          <th></th>
+
           <th>client_id</th>
           <th>project_id</th>
           <th>manager_id</th>
           <th>client_organization</th>
+          <th>Actions</th>
         </tr>
-        <tr>
-          <td>
-            <a href="#">Edit</a>
-          </td>
-          <td>
-            <a href="#">Delete</a>
-          </td>
-          <td>1</td>
-          <td>222</td>
-          <td>666</td>
-          <td>HR</td>
-        </tr>
-        <tr>
-          <td>
-            <a href="#">Edit</a>
-          </td>
-          <td>
-            <a href="#">Delete</a>
-          </td>
-          <td>2</td>
-          <td>333</td>
-          <td>890</td>
-          <td>Marketing</td>
-        </tr>
-        <tr>
-          <td>
-            <a href="#">Edit</a>
-          </td>
-          <td>
-            <a href="#">Delete</a>
-          </td>
-          <td>2</td>
-          <td>444</td>
-          <td>777</td>
-          <td>Legal</td>
-        </tr>
+        <tbody>
+    {% for item in clients %}
+    <tr>
+        <td>{{item[0]}}</td>
+        <td>{{item[1]}}</td>
+        <td>{{item[2]}}</td>
+        <td>{{item[3]}}</td>
+        <td>
+          <button>
+            <a href="./clients/edit_client/{{item[0]}}">Edit</a>
+          </button>
+          
+          <button>
+            <a href="./delete_client/{{item[0]}}">Delete</a>
+          </button>
+        </td>
+    </tr>
+    {% endfor %} 
       </table>
-      <!-- insert -->
-      <div id="insert" style="display: block">
-        <form id="addClient">
-          <legend><strong>Add Client</strong></legend>
-          <fieldset class="fields">
-            <label> Client_Id </label> <input type="text" name="client_id" />
-            <label> Project_Id </label> <input type="text" name="project_id" />
-            <label> Manager_Id </label> <input type="text" name="manager_id" />
-            <label> Client_organization </label>
-            <input type="text" name="Client_organization" />
-          </fieldset>
-          <input
-            class="btn"
-            type="submit"
-            id="addClient"
-            value="Add a Client"
-          />
-          <input class="btn" type="button" value="cancel" />
-        </form>
-      </div>
+      <button><a href="/add_client">Add New</a></button>
 
-      <p>&nbsp;</p>
-      <!-- update -->
-      <div id="update" style="display: block">
-        <form id="updateManager">
-          <legend><strong>Update Client</strong></legend>
-          <fieldset class="fields">
-            <label> client_Id </label>
-            <input type="text" name="project_id" value="4567" />
-            <label> project_Id </label>
-            <input type="text" name="project_id" value="3338" />
-            <label> manager_Id </label>
-            <input type="text" name="manager_id" value="9876" />
-            <label> client_organization </label>
-            <input type="text" name="client_organization" value="HR" />
-          </fieldset>
-          <input
-            class="btn"
-            type="submit"
-            id="UpdateSaveClient"
-            value="Save Update Client"
-          />
-          <input class="btn" type="button" value="cancel" />
-        </form>
-      </div>
-      <p>&nbsp;</p>
-      <!-- delete -->
-      <div id="delete" style="display: block">
-        <form id="deleteManager">
-          <legend><strong>Delete Client</strong></legend>
-          <fieldset class="fields">
-            <p>Are you sure you wish to delete the following?</p>
-          </fieldset>
-          <input
-            class="btn"
-            type="submit"
-            id="DeleteClient"
-            value="Delete Client"
-          />
-          <input class="btn" type="button" value="cancel" />
-        </form>
-      </div>
     </main>
   </body>
 </html>
