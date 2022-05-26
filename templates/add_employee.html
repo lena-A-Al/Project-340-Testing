@@ -5,25 +5,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./static/css/styles.css" rel="stylesheet" type="text/css" />
     <title>Add Employee</title>
 </head>
 <body>
     <!-- insert -->
 <div id="insert" style="display: block">
-    <form id="addemployee" action="/add_employee" method= "post">
+    <form id="addemployee" action="/add_employee" method= "POST">
       <legend><strong>Add Employee</strong></legend>
       <fieldset class="fields">
-        <label> manager_id </label> <input type="number" name="manager_id" />
+    
+        <!-- <label> manager_id </label> -->
+        <select name="manager_id" required>
+        <option value="">manager_id</option>
+        {% for manager in managers %}
+        <option value="{{manager[0]}}">{{manager[0]}}</option>
+        {% endfor %}
+        </select>
+
         <label> employee_name </label> <input type="text" name="employee_name" />
         <label> organization </label> <input type="text" name="organization" />
-      </fieldset>
-    
-      <input
+
+        <input
         class="btn"
         type="submit"
         value="Add Employee"
       />
       <button><a href="./employees">Cancel</a></button>
+      </fieldset>
     </form>
 </body>
 </html>
+
+

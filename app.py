@@ -1,4 +1,3 @@
-
 from flask import Flask,render_template, json, redirect,request
 from flask_mysqldb import MySQL
 # from database import db_connector
@@ -9,52 +8,44 @@ import os
 # database connection info
 app = Flask(__name__)
 
-app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-app.config['MYSQL_USER'] = 'cs340_aljehanl'
-app.config['MYSQL_PASSWORD'] = '8321' #last 4 of onid
-app.config['MYSQL_DB'] = 'cs340_aljehanl'
-app.config['MYSQL_CURSORCLASS'] = "DictCursor"
+# app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
+# app.config['MYSQL_USER'] = 'cs340_palaquie'
+# app.config['MYSQL_PASSWORD'] = '5283' #last 4 of onid
+# app.config['MYSQL_DB'] = 'cs340_palaquie'
+# app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 
-mysql = MySQL(app)
+# mysql = MySQL(app)
 db_connection = db.connect_to_database()
 
 ###----------------------------------Routes---------------------------------------#
 
 #---------------------------------Homepage Request--------------------------------#
-
+db_connection = db.connect_to_database()
 @app.route('/')
 def index():
     return render_template('/index.html')
 
 
 
-
-
-
-
-
-
-
-
-
-
+# Employees table:
 #---------------------------------Employee Get Request----------------------------#
 @app.route('/employees')
 def employees():
-    print("Fetching and rending employees web page")
-    # db_connection = db_connector.connect_to_database()
+    # connecting to the database
+    db_connection = db.connect_to_database()
+    # mySQL query to grab the data
     query = "SELECT * from employees;"
-    result = db.execute_query(db_connection, query).fetchall()
-    print('results employees')    
+    # execute_query is a function
+    result = db.execute_query(db_connection, query).fetchall()   
     return render_template('employees.html', employees=result) 
 #---------------------------------------------------------------------------------#
 
 #---------------------------------Employee Add request----------------------------#
 @app.route('/add_employee', methods =['POST','GET'])
 def add_employee():
-    # db_connection = db_connector.connect_to_database()
-
+    db_connection = db.connect_to_database()
+    # fire off if user presses the app employee button
     if request.method == 'POST':
         print('adding employee')
         manager_id = request.form['manager_id']
@@ -65,15 +56,19 @@ def add_employee():
         db.execute_query(db_connection, query, data).fetchall()
         return redirect("/employees")
     else:
-        return render_template('add_employee.html')
+        # set up the value for render template- manager_id
+        query = "SELECT manager_id FROM managers"
+        # execute the data from the query
+        data = db.execute_query(db_connection,query).fetchall()
+        # manager is the name of the avraible in html
+        print(data)
+        return render_template('add_employee.html', managers=data)
 #---------------------------------------------------------------------------------#
 
 #---------------------------------Employee Delete request-------------------------#
 @app.route('/delete_employee/<int:id>')
 def delete_employee(id):
-    # db_connection = db_connector.connect_to_database()
-
-
+    db_connection = db.connect_to_database()
     query="DELETE FROM employees WHERE employee_id = %s;"
     data = (id,)
     db.execute_query(db_connection, query, data)
@@ -84,10 +79,8 @@ def delete_employee(id):
 
 @app.route('/employees/edit_employee/<int:id>', methods = ["GET","POST"])
 def update_employee(id):
-    # db_connection = db_connector.connect_to_database()
-
+    db_connection = db.connect_to_database()
     if request.method == "POST":
-
         manager_id = request.form.get('manager_id')
         employee_name = request.form.get('employee_name')
         organization = request.form.get('organization')
@@ -109,26 +102,13 @@ def update_employee(id):
         return render_template("edit_employee.html", employee = employee[0], managers = managers)
 
 
-#--------------------------------------------------------------------------------#
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Projects table:
 #---------------------------------Projects Get request---------------------------#
 @app.route('/projects')
 def projects():
     #Fetching and rendering list of projects
-    # db_connection = db_connector.connect_to_database()
+    db_connection = db.connect_to_database()
     query = "SELECT * from projects;"
     result = db.execute_query(db_connection, query).fetchall()
     print('results projects')    
@@ -138,28 +118,48 @@ def projects():
 #---------------------------------Project Add request----------------------------#
 @app.route('/add_project', methods =['POST','GET'])
 def add_project():
-    # db_connection = db_connector.connect_to_database()
+    db_connection = db.connect_to_database()
 
     if request.method == 'POST':
         print('adding project')
         task = request.form['task']
         query = "INSERT INTO projects(task) VALUES (%s);"
-        db.execute_query(db_connection, query, task).fetchall()
+        data=(task,)
+        print("data: ",data)
+        db.execute_query(db_connection, query, data).fetchall()
         return redirect("/projects")
     else:
         return render_template('add_project.html')
+
+# @app.route('/add_employee', methods =['POST','GET'])
+# def add_employee():
+#     # db_connection = db_connector.connect_to_database()
+
+#     if request.method == 'POST':
+#         print('adding employee')
+#         manager_id = request.form['manager_id']
+#         employee_name = request.form['employee_name']
+#         organization = request.form['organization']
+#         query = "INSERT INTO employees(manager_id, employee_name, organization) VALUES (%s,%s,%s);"
+#         data=(manager_id, employee_name, organization)
+#         db.execute_query(db_connection, query, data).fetchall()
+#         return redirect("/employees")
+#     else:
+#         return render_template('add_employee.html')
 #---------------------------------Project Delete request-------------------------#
 @app.route('/delete_project/<int:id>')
 def delete_project(id):
-    # db_connection = db_connector.connect_to_database()
+    db_connection = db.connect_to_database()
 
-    query="DELETE FROM projects WHERE project_id = %s;"
-    db.execute_query(db_connection, query, id)
+    query= "DELETE FROM projects WHERE project_id = %s;"
+    data = (id,)
+    db.execute_query(db_connection, query, data)
     return redirect("/projects")
+
 #---------------------------------Project Update request-------------------------#
 @app.route('/projects/edit_project/<int:id>', methods = ["GET","POST"])
 def update_project(id):
-    # db_connection = db_connector.connect_to_database()
+    db_connection = db.connect_to_database()
 
     if request.method == "POST":
 
@@ -179,11 +179,11 @@ def update_project(id):
 
 
 
-
+# Clients table:
 #---------------------------------Clients Get request----------------------------#
 @app.route('/clients')
 def clients():
-    # db_connection = db_connector.connect_to_database()
+    db_connection = db.connect_to_database()
     query = "SELECT * from clients;"
     result = db.execute_query(db_connection, query).fetchall()
 
@@ -193,7 +193,7 @@ def clients():
 #---------------------------------Client Add request-----------------------------#
 @app.route('/add_client', methods =['POST','GET'])
 def add_client():
-    # db_connection = db_connector.connect_to_database()
+    db_connection = db.connect_to_database()
 
     if request.method == 'POST':
         print('adding client')
@@ -211,7 +211,7 @@ def add_client():
 #---------------------------------Client Delete request--------------------------#
 @app.route('/delete_client/<int:id>')
 def delete_client(id):
-    # db_connection = db_connector.connect_to_database()
+    db_connection = db.connect_to_database()
     
     query="DELETE FROM clients WHERE client_id = %s;"
     data = (id,)
@@ -230,14 +230,13 @@ def delete_client(id):
 
 
 
-
+# Managers table:
 #---------------------------------Manager Get request----------------------------#
 @app.route('/managers')
 def managers():
-    # db_connection = db_connector.connect_to_database()
+    db_connection = db.connect_to_database()
     query = "SELECT * from managers;"
     result = db.execute_query(db_connection, query).fetchall()
-     
     return render_template('managers.html', managers= result) 
 #---------------------------------Manager Add request----------------------------#
 
@@ -247,10 +246,11 @@ def managers():
 #---------------------------------Manager Delete request-------------------------#
 @app.route('/delete_manager/<int:id>')
 def delete_manager(id):
-    # db_connection = db_connector.connect_to_database()
-
+    db_connection = db.connect_to_database()
+    
     query="DELETE FROM managers WHERE manager_id = %s;"
-    db.execute_query(db_connection, query, id)
+    data = (id,)
+    db.execute_query(db_connection, query, data)
     return redirect("/managers")
 #--------------------------------------------------------------------------------#
 
@@ -263,7 +263,7 @@ def delete_manager(id):
 
 
 
-
+# Projects_mapping table:
 #-------------------------------Projects_mapping Get request---------------------#
 @app.route('/projects_mapping')
 def projects_mapping():
@@ -303,6 +303,7 @@ def delete_project_mapping(id):
 #---------------------------------Project_mapping Update request-----------------#
 #--------------------------------------------------------------------------------#
 
+
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 42543))
-    app.run(port=port, debug=False)
+    port = int(os.environ.get('PORT', 42544))
+    app.run(port=port, debug=True)

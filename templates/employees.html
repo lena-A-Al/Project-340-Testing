@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../static/styles.css" />
+    <link href="./static/css/styles.css" rel="stylesheet" type="text/css" />
     <title>Employee Page</title>
   </head>
   <body>
     <nav class="nav-home">
       <img
         class="img-home-logo"
-        src="../static/management.png"
+        src="./static/img/management.png"
         alt="management logo"
       />
       <p><a href="./">Home</a></p>
@@ -44,7 +44,7 @@
         <td>
        
           <button>
-          <a href="./employees/edit_employee/{{item[0]}}">Edit :p</a>
+          <a href="./employees/edit_employee/{{item[0]}}">Edit</a>
         </button>
         
         <button>
@@ -60,3 +60,24 @@
     </main>
   </body>
 </html>
+
+<!-- <form action="/prescriptions" method="post">
+  <fieldset>
+  <select name="patient_id" class="input-attribute" required>
+      <option value=""> -- Patient ID -- </option>
+      {% for p in patients_info %}
+      <option value="{{p['patient_id']}}"> {{p['first_name']}} {{p['last_name']}}</option>
+      {% endfor %}
+  </select>
+  <select name="medication_id" class="input-attribute" required>
+      <option value=""> -- Medication ID -- </option>
+      {% for m in medications_info %}
+      <option value="{{m['medication_id']}}"> {{m['drug_name']}}</option>
+      {% endfor %}
+  </select>
+  <input class="input-attribute" type="number" min="0" placeholder="Enter quantity" name="quantity" required/>
+<div class="button-container">
+  <input class="alt-button" type="submit" id="add_prescription" value="Add Prescription">
+</div>
+</fieldset>
+</form> -->
